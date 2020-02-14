@@ -1,4 +1,5 @@
 const express = require("express")
+const projectdb = require('../data/helpers/projectModel.js')
 const actionsdb = require(`../data/helpers/actionModel.js`)
 const router = express.Router();
 
@@ -12,7 +13,7 @@ router.get("/", (req, res) => {
         })
 })
 
-router.post("/", validateActionId, validateActions, (req, res) => {
+router.post("/", validateProjectId, validateActions, (req, res) => {
     actionsdb.insert(req.body)
         .then(action=> {
             res.status(201).json(action)
@@ -23,7 +24,7 @@ router.post("/", validateActionId, validateActions, (req, res) => {
         })
 })
 
-router.put("/:id", validateActionId, validateActions, (req, res) => {
+router.put("/:id", validateProjectId, validateActions, (req, res) => {
     actionsdb.update(req.params.id, req.body)
         .then(updatedaction => {
             res.status(200).json(updatedaction)
@@ -34,7 +35,7 @@ router.put("/:id", validateActionId, validateActions, (req, res) => {
         })
 })
 
-router.delete("/:id", validateActionId, (req, res) => {
+router.delete("/:id", validateProjectId, (req, res) => {
     actionsdb.remove(req.params.id)
         .then(count => {
             res.status(200).json(count)
@@ -44,6 +45,22 @@ router.delete("/:id", validateActionId, (req, res) => {
             res.status(500).json({ messaage: "Deletion failed"})
         })
 })
+
+
+
+
+function validateProjectId(req, res, next) {
+    projectdb.get(req.params.id)
+        .then(project => {
+            console.log("project exists", project);
+            if (project) {
+                req.project = project
+                next();
+            } else {
+                res.status(404).json({message: "no project with that id exists"})
+            }
+        })
+}
 
 function validateActionId(req, res, next) {
     actionsdb.get(req.params.id)
