@@ -89,16 +89,4 @@ function validateProject(req, res, next) {
     }
 }
 
-function validateActions(req, res, next) {
-    if(!req.body) {
-        res.status(400).json({message: "Missing action data"})
-    } else if (!req.body.name || !req.body.description || !req.body.notes) {
-        res.status(400).json({ message: "missing required name, description or notes"})
-    } else {
-        next();
-    }
-}
-
-
-
 module.exports = router;

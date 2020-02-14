@@ -42,7 +42,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
     The two parts or Express that we've learned about this week are the server and the router. The server establishes the port that will be used and deals with incoming requests. The router handles requests that are aimed at the specific route that it is tasked with maintaining
 
 - [x] Describe Middleware?
-    Middleware is a funciton that intercepts a process in progress and executes some sort of routine to check or alter data before passing it on to the initial target or the process or more middleware
+    Middleware is a function that intercepts a process in progress and executes some sort of routine to check or alter data before passing it on to the initial target or the process or more middleware
 
 - [x] Describe a Resource?
     A resource is a value that is returned from the database
